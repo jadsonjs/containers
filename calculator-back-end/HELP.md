@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'br.com.jadson.pipeline-demo' is invalid and this project uses 'br.com.jadson.pipelinedemo' instead.
+* The original package name 'br.com.jadson.pipeline-demo' is invalid and this project uses 'br.com.jadson.calculator' instead.
 
 # Getting Started
 

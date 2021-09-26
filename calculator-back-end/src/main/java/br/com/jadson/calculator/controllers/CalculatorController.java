@@ -24,9 +24,9 @@
  * CalcController
  * 29/08/20
  */
-package br.com.jadson.pipelinedemo.controllers;
+package br.com.jadson.calculator.controllers;
 
-import br.com.jadson.pipelinedemo.domain.ports.CalculatorService;
+import br.com.jadson.calculator.domain.ports.CalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,13 +54,13 @@ public class CalculatorController {
      * @return
      */
     @GetMapping("/sum")
-    public ResponseEntity<String> sum(
+    public ResponseEntity<Integer> sum(
             @RequestParam(value = "a", required = true, defaultValue = "0") int a,
             @RequestParam( value = "b", required = true, defaultValue = "0") int b) {
 
         int sum = calculatorService.sum(a, b);
 
-        return new ResponseEntity<>("Sum is: "+sum, HttpStatus.OK);
+        return new ResponseEntity<>(sum, HttpStatus.OK);
     }
 
 
@@ -74,13 +74,33 @@ public class CalculatorController {
      * @return
      */
     @GetMapping("/sub")
-    public ResponseEntity<String> sub(
+    public ResponseEntity<Integer> sub(
             @RequestParam(value = "a", required = true, defaultValue = "0") int a,
             @RequestParam( value = "b", required = true, defaultValue = "0") int b) {
 
         int sub = calculatorService.sub(a, b);
 
-        return new ResponseEntity<>("Sub is: "+sub, HttpStatus.OK);
+        return new ResponseEntity<>(sub, HttpStatus.OK);
+    }
+
+    @GetMapping("/mult")
+    public ResponseEntity<Integer> mult(
+            @RequestParam(value = "a", required = true, defaultValue = "0") int a,
+            @RequestParam( value = "b", required = true, defaultValue = "0") int b) {
+
+        int mult = calculatorService.mult(a, b);
+
+        return new ResponseEntity<>(mult, HttpStatus.OK);
+    }
+
+    @GetMapping("/div")
+    public ResponseEntity<Integer> div(
+            @RequestParam(value = "a", required = true, defaultValue = "0") int a,
+            @RequestParam( value = "b", required = true, defaultValue = "0") int b) {
+
+        int div = calculatorService.div(a, b);
+
+        return new ResponseEntity<>(div, HttpStatus.OK);
     }
 
 }

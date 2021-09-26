@@ -20,27 +20,23 @@
  *
  *
  * pipeline-demo
- * br.com.jadson.pipelinedemo.domain.ports
- * CalculateServiceImpl
+ * br.com.jadson.pipelinedemo.services
+ * CalculatorService
  * 29/08/20
  */
-package br.com.jadson.pipelinedemo.services;
-
-import br.com.jadson.pipelinedemo.domain.model.Calculator;
-import br.com.jadson.pipelinedemo.domain.ports.CalculatorService;
+package br.com.jadson.calculator.domain.ports;
 
 /**
- * Service Implementation
- *
+ * Service Declaration
  * Jadson Santos - jadsonjs@gmail.com
  */
-public class CalculatorServiceImpl implements CalculatorService {
+public interface CalculatorService {
 
-    public int sum(int a, int b) {
-        return new Calculator().sum(a,b);
-    }
+    int sum(int a, int b);
 
-    @Override
-    public int sub(int a, int b) { return  new Calculator().sub(a,b); }
+    int sub(int a, int b);
 
+    int mult(int a, int b);
+
+    int div(int a, int b);
 }

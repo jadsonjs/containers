@@ -25,7 +25,7 @@
  * Calculator
  * 29/08/20
  */
-package br.com.jadson.pipelinedemo.domain.model;
+package br.com.jadson.calculator.domain.model;
 
 /**
  * Implementation of a calculator
@@ -42,4 +42,7 @@ public class Calculator {
         return a-b;
     }
 
+    public int mult(int a, int b) { return a*b;}
+
+    public int div(int a, int b) { return a/b;}
 }

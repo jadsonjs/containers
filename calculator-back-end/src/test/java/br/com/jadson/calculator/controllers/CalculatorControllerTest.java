@@ -1,4 +1,4 @@
-package br.com.jadson.pipelinedemo.controllers;
+package br.com.jadson.calculator.controllers;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

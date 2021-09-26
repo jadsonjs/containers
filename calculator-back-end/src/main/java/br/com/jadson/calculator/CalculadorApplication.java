@@ -1,7 +1,7 @@
-package br.com.jadson.pipelinedemo;
+package br.com.jadson.calculator;
 
-import br.com.jadson.pipelinedemo.services.CalculatorServiceImpl;
-import br.com.jadson.pipelinedemo.domain.ports.CalculatorService;
+import br.com.jadson.calculator.services.CalculatorServiceImpl;
+import br.com.jadson.calculator.domain.ports.CalculatorService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

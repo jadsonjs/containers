@@ -2,27 +2,27 @@
   <div>
     
     <div class="calculator">
-      <input type="text" class="display" v-model="value" dir="rtl" disabled>
+      <input type="text" class="display" v-model="displayValue" dir="rtl" disabled>
       <br>
       <input type="button" class = "button" name="one" value="1" v-on:click="concat(1)">
       <input type="button" class = "button" name="two" value="2" v-on:click="concat(2)">
       <input type="button" class = "button" name="three" value="3" v-on:click="concat(3)">
-      <input type="button" class = "button" name="plus" value="+" onclick="calc.input.value += '+'">
+      <input type="button" class = "button" name="plus" value="+" v-on:click="sum()">
       <br>
-      <input type="button" class = "button" name="four" value="4" onclick="calc.input.value += '4'">
-      <input type="button" class = "button" name="five" value="5" onclick="calc.input.value += '5'">
-      <input type="button" class = "button" name="six" value="6" onclick="calc.input.value += '6'">
-      <input type="button" class = "button" name="minus" value="-" onclick="calc.input.value += '-'">
+      <input type="button" class = "button" name="four" value="4" v-on:click="concat(4)">
+      <input type="button" class = "button" name="five" value="5" v-on:click="concat(5)">
+      <input type="button" class = "button" name="six" value="6" v-on:click="concat(6)">
+      <input type="button" class = "button" name="minus" value="-" v-on:click="sub()">
       <br>
-      <input type="button" class = "button" name="seven" value="7" onclick="calc.input.value += '7'">
-      <input type="button" class = "button" name="eight" value="8" onclick="calc.input.value += '8'">
-      <input type="button" class = "button" name="nine" value="9" onclick="calc.input.value += '9'"> 
-      <input type="button" class = "button" name="times" value="*" onclick="calc.input.value += '*'">
+      <input type="button" class = "button" name="seven" value="7" v-on:click="concat(7)">
+      <input type="button" class = "button" name="eight" value="8" v-on:click="concat(8)">
+      <input type="button" class = "button" name="nine" value="9" v-on:click="concat(9)"> 
+      <input type="button" class = "button" name="times" value="*" v-on:click="mult()">
       <br>
       <input type="button" class = "button" id="clear" name="clear" value=" C " v-on:click="clear()">
-      <input type="button" class = "button" name="zero" value="0" onclick="clac.input.value +='0'">
-      <input type="button" class = "button" name="doit" value=" = " onclick="calc.input.value=eval(calc.input.value)">
-      <input type="button" class = "button" name="div" value="/" onclick="calc.input.value += '/'">
+      <input type="button" class = "button" name="zero" value="0" v-on:click="concat(0)">
+      <input type="button" class = "button" name="doit" value=" = " v-on:click="equals()">
+      <input type="button" class = "button" name="div" value="/" v-on:click="div()">
       <br>
     </div>
 
@@ -31,23 +31,105 @@
 
 <script>
 export default {
+  
   name: 'Calculator',
   
+  computed:{
+    api(){ return 'http://localhost:8081' },
+  },
 
   data() {
     return {
-        value: '',
+        displayValue: '',
+        accumulator : 0,
+        operation : '',
     }
   },
 
   methods: {
+    
     concat(v){
-      this.value = this.value+''+v;
+      this.displayValue = this.displayValue+''+v;
     },
 
     clear(){
-      this.value = '';
+      this.displayValue = '';
+      this.accumulator = 0;
     },
+
+    async sum(){
+      this.operation = 'sum';
+      if(this.accumulator === 0){
+        this.accumulator = parseInt(this.displayValue)
+      }else{
+        this.axios.get(this.api+'/calculator/sum?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+        .then((response) => {
+          this.accumulator = response.data;
+        })
+      }
+      this.displayValue = '';
+    },
+
+    async sub(){
+      this.operation = 'sub';
+      if(this.accumulator === 0){
+        this.accumulator = parseInt(this.displayValue)
+      }else{
+        this.axios.get(this.api+'/calculator/sub?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+        .then((response) => {
+          this.accumulator = response.data;
+        })
+      }
+      this.displayValue = '';
+    },
+
+    async mult(){
+      this.operation = 'mult';
+      if(this.accumulator === 0){
+        this.accumulator = parseInt(this.displayValue)
+      }else{
+        this.axios.get(this.api+'/calculator/mult?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+        .then((response) => {
+          this.accumulator = response.data;
+        })
+      }
+      this.displayValue = '';
+    },
+
+
+    async div(){
+      this.operation = 'div';
+      if(this.accumulator === 0){
+        this.accumulator = parseInt(this.displayValue)
+      }else{
+        this.axios.get(this.api+'/calculator/div?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+        .then((response) => {
+          this.accumulator = response.data;
+        })
+      }
+      this.displayValue = '';
+    },
+
+    async equals(){
+      switch (this.operation) {
+        case 'sum':
+          await this.sum();
+          break;
+        case 'sub':
+          await this.sub();
+          break;
+        case 'mult':
+          await this.mult();
+          break;
+        case 'div':
+          await this.div();
+          break;
+      }
+      this.displayValue = ''+this.accumulator;
+      this.accumulator = 0;
+      this.operation = '';
+    },
+
   },
 
 }

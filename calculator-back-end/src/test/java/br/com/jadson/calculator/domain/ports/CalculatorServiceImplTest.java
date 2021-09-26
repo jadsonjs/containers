@@ -1,6 +1,6 @@
-package br.com.jadson.pipelinedemo.domain.ports;
+package br.com.jadson.calculator.domain.ports;
 
-import br.com.jadson.pipelinedemo.services.CalculatorServiceImpl;
+import br.com.jadson.calculator.services.CalculatorServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
