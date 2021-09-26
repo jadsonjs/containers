@@ -30,7 +30,7 @@ class CalculatorControllerTest {
                 .exchange("/calculator/sum?a=15&b=20", HttpMethod.GET, null, String.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals("Sum is: 35", response.getBody());
+        Assertions.assertEquals("35", response.getBody());
     }
 
     @Test
@@ -39,7 +39,7 @@ class CalculatorControllerTest {
                 .exchange("/calculator/sub?a=15&b=5", HttpMethod.GET, null, String.class);
 
         Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
-        Assertions.assertEquals("Sub is: 10", response.getBody());
+        Assertions.assertEquals("10", response.getBody());
     }
 
 }
