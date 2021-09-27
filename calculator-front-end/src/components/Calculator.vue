@@ -40,7 +40,7 @@ export default {
 
   data() {
     return {
-        displayValue: '',
+        displayValue: '0',
         accumulator : 0,
         operation : '',
     }
@@ -49,82 +49,110 @@ export default {
   methods: {
     
     concat(v){
-      this.displayValue = this.displayValue+''+v;
+      if(this.displayValue !== '0')
+        this.displayValue = this.displayValue+''+v;
+      else
+        this.displayValue = ''+v;
     },
 
     clear(){
-      this.displayValue = '';
+      this.displayValue = '0';
       this.accumulator = 0;
+      this.operation = '';
     },
 
-    async sum(){
+    sum(){
       this.operation = 'sum';
       if(this.accumulator === 0){
         this.accumulator = parseInt(this.displayValue)
+        this.displayValue = '0';
       }else{
         this.axios.get(this.api+'/calculator/sum?a='+this.accumulator+'&b='+parseInt(this.displayValue))
         .then((response) => {
           this.accumulator = response.data;
+          this.displayValue = '0';
         })
       }
-      this.displayValue = '';
     },
 
-    async sub(){
+    sub(){
       this.operation = 'sub';
       if(this.accumulator === 0){
         this.accumulator = parseInt(this.displayValue)
+        this.displayValue = '0';
       }else{
         this.axios.get(this.api+'/calculator/sub?a='+this.accumulator+'&b='+parseInt(this.displayValue))
         .then((response) => {
           this.accumulator = response.data;
+          this.displayValue = '0';
         })
       }
-      this.displayValue = '';
     },
 
-    async mult(){
+    mult(){
       this.operation = 'mult';
       if(this.accumulator === 0){
         this.accumulator = parseInt(this.displayValue)
+        this.displayValue = '0';
       }else{
         this.axios.get(this.api+'/calculator/mult?a='+this.accumulator+'&b='+parseInt(this.displayValue))
         .then((response) => {
           this.accumulator = response.data;
+          this.displayValue = '0';
         })
       }
-      this.displayValue = '';
     },
 
 
-    async div(){
+    div(){
       this.operation = 'div';
       if(this.accumulator === 0){
         this.accumulator = parseInt(this.displayValue)
+        this.displayValue = '0';
       }else{
         this.axios.get(this.api+'/calculator/div?a='+this.accumulator+'&b='+parseInt(this.displayValue))
         .then((response) => {
           this.accumulator = response.data;
+          this.displayValue = '0';
         })
       }
-      this.displayValue = '';
     },
 
-    async equals(){
+    equals(){
       switch (this.operation) {
         case 'sum':
-          await this.sum();
+          this.axios.get(this.api+'/calculator/sum?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+          .then((response) => {
+            this.summarize(response.data);
+          })
           break;
         case 'sub':
-          await this.sub();
+          this.axios.get(this.api+'/calculator/sub?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+          .then((response) => {
+            this.summarize(response.data);
+          })
           break;
         case 'mult':
-          await this.mult();
+          this.axios.get(this.api+'/calculator/mult?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+          .then((response) => {
+            this.summarize(response.data);
+          })
           break;
         case 'div':
-          await this.div();
+         this.axios.get(this.api+'/calculator/div?a='+this.accumulator+'&b='+parseInt(this.displayValue))
+          .then((response) => {
+            this.summarize(response.data);
+          })
           break;
+        default:
+          this.summarize(this.accumulator);
+          break;  
       }
+      
+    },
+
+    summarize(data){
+      this.accumulator = data;
       this.displayValue = ''+this.accumulator;
       this.accumulator = 0;
       this.operation = '';
