@@ -33,7 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Example of simple REST Controller
+ * REST Controller with calculator operations
  *
  * Jadson Santos - jadsonjs@gmail.com
  */

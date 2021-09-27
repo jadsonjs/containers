@@ -1,0 +1,33 @@
+version: "1.0"
+
+# define the networks that need to be created 
+# to our services (containers)
+networks:
+  calculator-net2:
+    driver: bridge
+
+# definer our services (containers)
+services:
+  # the first is the front end application container
+  # It uses the calculator-front-end in port 8080:8080
+  # Using a calculator-net2 network
+  # and should starts after back-end service
+  front-end:
+    image: calculator-front-end
+    ports:
+      - "8080:8080"
+    networks:
+      - calculator-net2
+    depends_on:
+      - back-end
+  # now up a container using the calculator-back-end image 
+  # on port 8081:8081 
+  # and networks calculator-net2
+  back-end:
+    image: calculator-back-end
+    ports:
+      - "8081:8081"
+    networks:
+      - calculator-net2
+
+
