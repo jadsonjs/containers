@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-first-deployment
+####################################### 
+# same structure of replicaset  
+####################################### 
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      name: webpage 
+  template:
+    metadata:
+      labels:
+        name: webpage 
+    spec:
+        containers:
+        # the name of container
+        - name: web-app
+        # the docker image
+          image: jadsonjs/web-app:v2
+          ports:
+          # port on the container
+          - containerPort: 8080
+
+# continuous same file
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-first-service
+spec:
+  # select the pods to export in this service
+  selector:
+    name: webpage
+  ports:
+    # container port
+    - port: 80
+      # redirect service port to container port
+      targetPort: 8080
+      protocol: TCP
+      # fix the service node port
+      nodePort: 30000
+  type: NodePort
+
+
+
+

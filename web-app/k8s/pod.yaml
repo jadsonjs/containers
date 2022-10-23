@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+   # the name of the pod
+  name: myfirstpod
+spec:
+  containers:
+    # the name of container
+  - name: web-app
+    # the docker image
+    image: jadsonjs/web-app:v1
+    # limits of my pd
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+    # port on the container
+      - containerPort: 8080

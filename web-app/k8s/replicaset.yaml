@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-first-replicaset
+spec:
+  # define the number of replicas of the pods this replicaset will create
+  replicas: 10
+  selector:
+    #select pods of this replicaSet
+    matchLabels:
+      name: webpage
+  ################################################     
+  # copy of pod specs   
+  ################################################
+  template:
+    metadata:
+      labels:
+        name: webpage 
+    spec:
+        containers:
+        # the name of container
+        - name: web-app
+        # the docker image
+          image: jadsonjs/web-app:v2
+          ports:
+          # port on the container
+          - containerPort: 8080
+
+
+
+
